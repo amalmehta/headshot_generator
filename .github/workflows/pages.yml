@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Keep only the files the site serves
-        run: mkdir site && cp -r web/index.html web/styles.css web/js site/
+        run: mkdir site && cp -r web/index.html web/styles.css web/icon.svg web/apple-touch-icon.png web/js site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

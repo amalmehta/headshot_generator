@@ -102,5 +102,7 @@ Sources/HeadshotCore/        image pipeline: analysis, rendering, framing, avata
 Sources/HeadshotGenerator/   SwiftUI app and feedback tab
 Tests/HeadshotCoreTests/     unit tests
 scripts/build_app.sh         builds the .app bundle
-web/                         website: index.html, styles.css, js/ (framing, imageops, avatars, vision, app), tests/
+scripts/make_icon.sh         regenerates the Mac and website icons from Resources/AppIcon.svg (needs rsvg-convert)
+Resources/                   app icon: AppIcon.svg (source) and AppIcon.icns (built)
+web/                         website: index.html, styles.css, icons, js/ (framing, imageops, avatars, vision, app), tests/
 ```

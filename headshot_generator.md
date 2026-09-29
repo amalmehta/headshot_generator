@@ -51,7 +51,7 @@ Website, decided without asking:
 - Models: blaze_face_short_range + selfie_segmenter (small). The WASM runtime is about 11.7 MB, downloaded once from jsDelivr.
 - Feedback tab on the web opens a GitHub issue (the Mac app saves feedback locally).
 - Deployed by a GitHub Actions workflow (Pages can't serve /web straight from a branch); the workflow runs the web tests first.
-- No app icon (default icon); not requested.
+- App icon (added on request, 2026-09-28): white head-and-shoulders on an indigo tile, with viewfinder corners (the crop) and a gold sparkle (the cleanup). The SVG is the source; the .icns is committed so builds don't need rsvg-convert. macOS 26 draws its glass edge around this older-style icon.
 - Tests don't ship a face image. The real-portrait test runs only when HEADSHOT_TEST_IMAGE is set.
 
 CHANGELOG:
@@ -68,3 +68,5 @@ CHANGELOG:
 - 2026-09-28 — built v0.1 Mac app: on-device headshot cleanup + stylized avatars, feedback tab, tests, build script
 - 2026-09-28 — added README and .gitignore; pushed to GitHub (private repo)
 - 2026-09-28 — built website version (web/), deployed to GitHub Pages; repo made public
+- 2026-09-28 — added Mac app icon (Resources/AppIcon.svg → AppIcon.icns)
+- 2026-09-28 — website uses the app icon (favicon + iOS home-screen icon, generated from the same SVG)

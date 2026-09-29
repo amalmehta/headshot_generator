@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="100 100 824 824">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#5b7cfa"/>
+      <stop offset="1" stop-color="#2a3fb0"/>
+    </linearGradient>
+    <radialGradient id="light" cx="0.5" cy="0.36" r="0.55">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.28"/>
+    </radialGradient>
+    <linearGradient id="person" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e3e8ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <clipPath id="tile"><rect x="100" y="100" width="824" height="824" rx="185"/></clipPath>
+  </defs>
+
+  <!-- Tile on Apple's 1024 grid (824 body, 100 margin) -->
+  <g filter="url(#shadow)">
+    <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#bg)"/>
+  </g>
+  <g clip-path="url(#tile)">
+    <rect x="100" y="100" width="824" height="824" fill="url(#light)"/>
+    <!-- Head and shoulders -->
+    <circle cx="512" cy="430" r="132" fill="url(#person)"/>
+    <path d="M262 924 C 280 700, 390 612, 512 612 C 634 612, 744 700, 762 924 Z" fill="url(#person)"/>
+  </g>
+
+  <!-- Viewfinder corners: the headshot crop -->
+  <g fill="none" stroke="#ffffff" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
+    <path d="M214 330 V 250 Q 214 214 250 214 H 330"/>
+    <path d="M694 214 H 774 Q 810 214 810 250 V 330"/>
+  </g>
+
+  <!-- Sparkle: the clean-up -->
+  <path d="M760 386 C 768 430, 782 444, 826 452 C 782 460, 768 474, 760 518 C 752 474, 738 460, 694 452 C 738 444, 752 430, 760 386 Z" fill="#ffd66b"/>
+  <path d="M676 300 C 680 322, 687 329, 709 333 C 687 337, 680 344, 676 366 C 672 344, 665 337, 643 333 C 665 329, 672 322, 676 300 Z" fill="#ffd66b" opacity="0.85"/>
+</svg>
