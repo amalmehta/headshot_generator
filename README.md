@@ -1,6 +1,8 @@
 # Headshot Generator
 
-A native macOS app that turns an everyday photo into a clean, professional-looking headshot and a set of stylized avatars. Everything runs on your Mac with Apple's Vision and Core Image frameworks: no cloud, no API keys, and your photos never leave the machine.
+**Try it in your browser:** https://amalmehta.github.io/headshot_generator/
+
+A native macOS app, plus a website version, that turns an everyday photo into a clean, professional-looking headshot and a set of stylized avatars. Everything runs on your Mac with Apple's Vision and Core Image frameworks: no cloud, no API keys, and your photos never leave the machine.
 
 ```mermaid
 flowchart LR
@@ -73,6 +75,26 @@ The test that runs on a real face is skipped unless you point it at a portrait. 
 HEADSHOT_TEST_IMAGE=/path/to/portrait.jpg HEADSHOT_TEST_OUTPUT=/tmp/out swift test
 ```
 
+## Website
+
+The site in `web/` does the same job in the browser: MediaPipe (WebAssembly) finds the face and outlines the person, and plain JavaScript does the pixel work. Your photo never leaves the browser. The first photo downloads about 12 MB of library and model files from jsDelivr and Google, and the browser caches them after that.
+
+It's plain HTML and JavaScript with no build step. To run it locally:
+
+```bash
+cd web
+npm run serve        # http://localhost:8080
+```
+
+To run its tests (Node 20 or later):
+
+```bash
+cd web
+npm test
+```
+
+Every push to `main` that touches `web/` runs those tests and deploys the site to GitHub Pages (`.github/workflows/pages.yml`).
+
 ## Project layout
 
 ```
@@ -80,4 +102,5 @@ Sources/HeadshotCore/        image pipeline: analysis, rendering, framing, avata
 Sources/HeadshotGenerator/   SwiftUI app and feedback tab
 Tests/HeadshotCoreTests/     unit tests
 scripts/build_app.sh         builds the .app bundle
+web/                         website: index.html, styles.css, js/ (framing, imageops, avatars, vision, app), tests/
 ```

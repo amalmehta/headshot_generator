@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Headshot Generator</title>
+  <meta name="description" content="Turn a photo into a clean headshot and stylized avatars, right in your browser. Your photo never leaves your device.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%233b5bdb'/><circle cx='16' cy='12.5' r='5.5' fill='white'/><path d='M6 28c1.5-6 5.5-9 10-9s8.5 3 10 9z' fill='white'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">Headshot Generator</div>
+    <label class="btn" title="Open a photo">
+      <input id="file" type="file" accept="image/*" hidden>
+      Open…
+    </label>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-headshot" aria-selected="true">Headshot</button>
+      <button role="tab" id="tab-avatars" aria-selected="false">Avatars</button>
+    </div>
+    <button class="btn primary" id="export" disabled>Export headshot</button>
+  </header>
+
+  <main class="layout">
+    <section class="stage" id="stage">
+      <div class="drop" id="drop">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="6"/><circle cx="24" cy="19" r="7"/><path d="M11 42c2-8 7-12 13-12s11 4 13 12"/></svg>
+        <p class="drop-title">Drop a photo here</p>
+        <label class="btn"><input id="file2" type="file" accept="image/*" hidden>Choose a photo…</label>
+        <p class="hint">Your photo never leaves this browser.</p>
+      </div>
+
+      <div class="view" id="view-headshot" hidden>
+        <canvas id="preview"></canvas>
+        <div class="tabs small" role="group" aria-label="Compare">
+          <button id="before" aria-pressed="false">Before</button>
+          <button id="after" aria-pressed="true">After</button>
+        </div>
+      </div>
+
+      <div class="view gallery" id="view-avatars" hidden></div>
+
+      <div class="busy" id="busy" hidden><span class="spinner"></span><span id="busy-text">Working…</span></div>
+    </section>
+
+    <aside class="inspector" id="inspector">
+      <div class="status" id="status" hidden></div>
+
+      <form id="controls" class="panel" autocomplete="off">
+        <fieldset data-mode="headshot">
+          <legend>Framing</legend>
+          <label class="row">Crop
+            <select name="crop">
+              <option value="square">Square 1:1</option>
+              <option value="portrait">Portrait 4:5</option>
+              <option value="original">Uncropped</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <fieldset data-mode="headshot">
+          <legend>Background</legend>
+          <label class="row">Style
+            <select name="background">
+              <option value="original">Original</option>
+              <option value="blur">Blur</option>
+              <option value="solid">Solid</option>
+              <option value="gradient">Studio gradient</option>
+            </select>
+          </label>
+          <label class="slider" data-when="blur">Blur <input type="range" name="backgroundBlur" min="0.005" max="0.08" step="0.001"></label>
+          <label class="row" data-when="solid gradient">Colour <input type="color" name="backgroundColor"></label>
+        </fieldset>
+
+        <fieldset data-mode="headshot">
+          <legend>Light &amp; colour</legend>
+          <label class="row">Auto enhance <input type="checkbox" name="autoEnhance"></label>
+          <label class="slider">Exposure <input type="range" name="exposure" min="-1" max="1" step="0.01"></label>
+          <label class="slider">Contrast <input type="range" name="contrast" min="0.75" max="1.25" step="0.01"></label>
+          <label class="slider">Saturation <input type="range" name="saturation" min="0" max="2" step="0.01"></label>
+          <label class="slider">Warmth <input type="range" name="warmth" min="-1" max="1" step="0.01"></label>
+        </fieldset>
+
+        <fieldset data-mode="headshot">
+          <legend>Retouch</legend>
+          <label class="slider">Skin smoothing <input type="range" name="smoothing" min="0" max="1" step="0.01"></label>
+          <button type="button" class="btn" id="reset">Reset adjustments</button>
+        </fieldset>
+
+        <fieldset data-mode="avatars" hidden>
+          <legend>Avatars</legend>
+          <label class="row">Export as circle <input type="checkbox" id="circle" checked></label>
+          <p class="hint">Avatars are made from your headshot settings. Change them on the Headshot tab.</p>
+        </fieldset>
+      </form>
+    </aside>
+  </main>
+
+  <div class="feedback">
+    <button class="feedback-tab" id="feedback-tab" aria-expanded="false" aria-controls="feedback-panel">Feedback</button>
+    <div class="feedback-panel" id="feedback-panel" hidden>
+      <p><strong>Feedback</strong></p>
+      <p>Found a bug or have an idea? Open an issue on GitHub.</p>
+      <a class="btn primary" href="https://github.com/amalmehta/headshot_generator/issues/new?title=Feedback%3A%20" target="_blank" rel="noopener">Open an issue</a>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

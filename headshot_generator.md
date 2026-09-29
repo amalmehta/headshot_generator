@@ -43,7 +43,14 @@ Decided without asking:
 - SwiftUI app built as a Swift package (no .xcodeproj); scripts/build_app.sh wraps it into build/Headshot Generator.app, signed ad hoc. macOS 14+.
 - Cleanup = auto-enhance, exposure/contrast/saturation/warmth, edge-preserving skin smoothing (person only), background (original / blur / solid / studio gradient) via Vision person segmentation, auto head-and-shoulders crop (1:1, 4:5 or uncropped) from the largest detected face. No face found = centre crop; no person mask = background left as is.
 - Feedback tab: small "Feedback" tab at the window's bottom-right; saves locally to ~/Library/Application Support/HeadshotGenerator/feedback.jsonl (nothing sent anywhere).
-- GitHub repo created private (visibility not specified); make it public with `gh repo edit --visibility public`.
+- GitHub repo created private at first (visibility not specified), then made public so GitHub Pages could serve the site (user's choice, 2026-09-28).
+
+Website (asked and answered, 2026-09-28): hosted on GitHub Pages from /web; MediaPipe runs in the browser for the face and person outline; plain HTML/JS with no build step.
+Website, decided without asking:
+- Pixel pipeline rewritten in plain JS (web/js/imageops.js, avatars.js) to match the Mac app's features and six avatar styles. The look is close, not pixel-identical.
+- Models: blaze_face_short_range + selfie_segmenter (small). The WASM runtime is about 11.7 MB, downloaded once from jsDelivr.
+- Feedback tab on the web opens a GitHub issue (the Mac app saves feedback locally).
+- Deployed by a GitHub Actions workflow (Pages can't serve /web straight from a branch); the workflow runs the web tests first.
 - No app icon (default icon); not requested.
 - Tests don't ship a face image. The real-portrait test runs only when HEADSHOT_TEST_IMAGE is set.
 
@@ -60,3 +67,4 @@ CHANGELOG:
 - 2026-09-28 — folded inputs, instructions, constraints, deliverables and done criteria into one free-form CONTEXT
 - 2026-09-28 — built v0.1 Mac app: on-device headshot cleanup + stylized avatars, feedback tab, tests, build script
 - 2026-09-28 — added README and .gitignore; pushed to GitHub (private repo)
+- 2026-09-28 — built website version (web/), deployed to GitHub Pages; repo made public
