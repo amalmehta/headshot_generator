@@ -1,0 +1,62 @@
+PROJECT NAME: headshot_generator
+
+META-INSTRUCTIONS:
+
+<Read it all before acting. Ask about anything unclear, contradictory or
+ underspecified — before starting and mid-build. Ask in the question widget
+ (AskUserQuestion): related questions batched, concrete options, your
+ recommendation first. Plain text only if the widget isn't available.>
+
+<Don't expand scope. Anything not listed here is a proposal, including changes
+ to this file — propose it, don't do it.>
+
+<Prefer doing over describing: run the code, write the files, test it.>
+
+<Always in scope, no proposal needed: a README with build and usage steps when
+ it goes on GitHub, and a small unobtrusive feedback tab if what you're
+ building is an application rather than a script.>
+
+<If what you're building is an application, build it as a Mac app first; the
+ website comes after, as its own step.>
+
+<Finish by listing every deliverable: path, what it is, how to check it works.>
+
+<Git rules (no Claude attribution, never commit .claude/) are in
+ ~/.claude/CLAUDE.md and apply on their own — nothing to repeat here.>
+
+<Keep the changelog at the bottom current.>
+
+CONTEXT:
+
+create a headshot/clean up existing picture and include an avatar vizualization
+
+OPEN QUESTIONS / ASSUMPTIONS:
+
+<Agent fills in: what it guessed, what it decided without asking.>
+
+Asked and answered (2026-09-28):
+- Engine: on-device cleanup only (Apple Vision + Core Image). No cloud or generative AI, no API keys, photos never leave the Mac.
+- "Avatar visualization" = stylized avatars made from the cleaned headshot (Cartoon, Pop Art, Pencil Sketch, Duotone, Halftone, Pixel), shown side by side, exportable, with an optional circle crop.
+- Scope for this pass: native Mac app only, local. Website and GitHub push are later, separate steps.
+
+Decided without asking:
+- SwiftUI app built as a Swift package (no .xcodeproj); scripts/build_app.sh wraps it into build/Headshot Generator.app, signed ad hoc. macOS 14+.
+- Cleanup = auto-enhance, exposure/contrast/saturation/warmth, edge-preserving skin smoothing (person only), background (original / blur / solid / studio gradient) via Vision person segmentation, auto head-and-shoulders crop (1:1, 4:5 or uncropped) from the largest detected face. No face found = centre crop; no person mask = background left as is.
+- Feedback tab: small "Feedback" tab at the window's bottom-right; saves locally to ~/Library/Application Support/HeadshotGenerator/feedback.jsonl (nothing sent anywhere).
+- GitHub repo created private (visibility not specified); make it public with `gh repo edit --visibility public`.
+- No app icon (default icon); not requested.
+- Tests don't ship a face image. The real-portrait test runs only when HEADSHOT_TEST_IMAGE is set.
+
+CHANGELOG:
+
+- 2026-09-28 — created
+- 2026-09-15 — added meta-instruction: built-out applications include a small feedback tab
+- 2026-09-15 — added meta-instruction: no "Claude" attribution in commits, PRs, or branches
+- 2026-09-16 — added meta-instruction: always include a README when adding to GitHub
+- 2026-09-16 — changed meta-instruction: ask clarifying questions in the question widget
+- 2026-09-17 — added meta-instructions: Claude never a contributor; never commit .claude/
+- 2026-09-26 — compressed the meta-instructions and every field prompt; git rules moved to the global instruction file
+- 2026-09-27 — added meta-instruction: applications are built as a Mac app first, then a website
+- 2026-09-28 — folded inputs, instructions, constraints, deliverables and done criteria into one free-form CONTEXT
+- 2026-09-28 — built v0.1 Mac app: on-device headshot cleanup + stylized avatars, feedback tab, tests, build script
+- 2026-09-28 — added README and .gitignore; pushed to GitHub (private repo)
