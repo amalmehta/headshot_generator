@@ -42,7 +42,9 @@ flowchart LR
 ./scripts/build_app.sh
 ```
 
-This builds a release binary and packages it as `build/Headshot Generator.app`, signed ad hoc. Open it with:
+This builds a release binary and packages it as `build/Headshot Generator.app`, signed ad hoc. With Xcode 26 or later it compiles the Icon Composer icon (`Resources/AppIcon.icon`), which gives macOS 26's glass, dark and tinted looks. With older Xcode it uses `Resources/AppIcon.icns` instead.
+
+The icon's artwork exists twice: the three layer SVGs in `Resources/AppIcon.icon/Assets/` and the flat `Resources/AppIcon.svg`. If you change the design, update both (open `AppIcon.icon` in Icon Composer to edit the layers), then run `scripts/make_icon.sh` to rebuild the fallback and website icons. Open it with:
 
 ```bash
 open "build/Headshot Generator.app"
@@ -103,6 +105,6 @@ Sources/HeadshotGenerator/   SwiftUI app and feedback tab
 Tests/HeadshotCoreTests/     unit tests
 scripts/build_app.sh         builds the .app bundle
 scripts/make_icon.sh         regenerates the Mac and website icons from Resources/AppIcon.svg (needs rsvg-convert)
-Resources/                   app icon: AppIcon.svg (source) and AppIcon.icns (built)
+Resources/                   app icon: AppIcon.icon (Icon Composer, used by the build), AppIcon.svg (flat source for the .icns fallback and website icons), AppIcon.icns
 web/                         website: index.html, styles.css, icons, js/ (framing, imageops, avatars, vision, app), tests/
 ```
