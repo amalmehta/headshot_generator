@@ -56,12 +56,12 @@ swift run HeadshotGenerator
 
 ## Usage
 
-1. Drag a photo into the window, or click **Open…** (⌘O).
+1. Drag a photo into the window, click **Open…** (⌘O), drop it on the app's Dock icon, or right-click it in Finder and choose **Open With → Headshot Generator**.
 2. On the **Headshot** tab, choose a crop and background, and adjust light, colour and smoothing. The side panel shows whether a face and a person outline were found.
 3. Click **Export Headshot…** (⌘E).
 4. Switch to the **Avatars** tab and click **Export…** under any style.
 
-If no face is found, the app crops from the centre. If the person can't be outlined, the background is left as it is.
+If no face is found, the app crops from the centre. If no person is found (the outline covers less than 5% of the photo), the background is left as it is.
 
 ## Tests
 

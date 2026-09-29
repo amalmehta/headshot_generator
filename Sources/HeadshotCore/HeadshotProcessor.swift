@@ -63,12 +63,28 @@ public final class HeadshotProcessor: @unchecked Sendable {
             .map { VNImageRectForNormalizedRect($0.boundingBox, Int(size.width), Int(size.height)) }
 
         var mask: CIImage?
+        // Vision returns a mask for every photo, even with nobody in it. A near-empty one means
+        // "no person": using it would replace the whole picture with background.
         if let buffer = person.results?.first?.pixelBuffer {
             let raw = CIImage(cvPixelBuffer: buffer)
-            mask = raw.transformed(by: .init(scaleX: size.width / raw.extent.width,
-                                             y: size.height / raw.extent.height))
+            if coverage(of: raw) >= Self.minPersonCoverage {
+                mask = raw.transformed(by: .init(scaleX: size.width / raw.extent.width,
+                                                 y: size.height / raw.extent.height))
+            }
         }
         return PhotoAnalysis(image: image, face: face, personMask: mask)
+    }
+
+    /// Share of the frame a person mask must cover to count as a person.
+    static let minPersonCoverage = 0.05
+
+    /// Mean mask value, 0...1.
+    func coverage(of mask: CIImage) -> Double {
+        let avg = mask.applyingFilter("CIAreaAverage", parameters: [kCIInputExtentKey: CIVector(cgRect: mask.extent)])
+        var px = [UInt8](repeating: 0, count: 4)
+        context.render(avg, toBitmap: &px, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1),
+                       format: .RGBA8, colorSpace: nil)
+        return Double(px[0]) / 255
     }
 
     // MARK: Rendering

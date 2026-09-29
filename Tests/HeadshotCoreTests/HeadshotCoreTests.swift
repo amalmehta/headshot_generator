@@ -89,6 +89,15 @@ final class PipelineTests: XCTestCase {
         XCTAssertEqual(centre.a, 255)
     }
 
+    /// A photo with nobody in it must not get a person mask, or the background swap erases it.
+    func testNoPersonMeansNoMask() throws {
+        let url = URL(fileURLWithPath: "/Library/User Pictures/Nature/Cactus.heic")
+        guard FileManager.default.fileExists(atPath: url.path) else { throw XCTSkip("macOS stock picture not present") }
+        let analysis = try processor.analyze(try HeadshotProcessor.loadImage(at: url))
+        XCTAssertNil(analysis.personMask)
+        XCTAssertNil(analysis.face)
+    }
+
     /// Runs the full pipeline on a real portrait when HEADSHOT_TEST_IMAGE points at one.
     func testRealPortrait() throws {
         guard let path = ProcessInfo.processInfo.environment["HEADSHOT_TEST_IMAGE"] else {

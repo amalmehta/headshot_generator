@@ -70,3 +70,5 @@ CHANGELOG:
 - 2026-09-28 — built website version (web/), deployed to GitHub Pages; repo made public
 - 2026-09-28 — added Mac app icon (Resources/AppIcon.svg → AppIcon.icns)
 - 2026-09-28 — website uses the app icon (favicon + iOS home-screen icon, generated from the same SVG)
+- 2026-09-28 — Mac app opens photos dropped on its Dock icon or chosen with Finder's Open With (it never becomes the default image app)
+- 2026-09-28 — fixed: a photo with no person was turned almost entirely into background, because the person mask always exists; now a mask covering under 5% of the photo counts as no person (Mac app and website)

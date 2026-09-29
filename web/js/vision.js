@@ -7,6 +7,9 @@ const MODELS = 'https://storage.googleapis.com/mediapipe-models';
 const FACE_MODEL = `${MODELS}/face_detector/blaze_face_short_range/float16/latest/blaze_face_short_range.tflite`;
 const PERSON_MODEL = `${MODELS}/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite`;
 
+/** Share of the frame a person mask must cover to count as a person (same as the Mac app). */
+const MIN_PERSON_COVERAGE = 0.05;
+
 let models;
 
 export function loadModels() {
@@ -57,7 +60,13 @@ export async function analyze(canvas) {
   let mask = null;
   const result = person.segment(small);
   const m = result.confidenceMasks?.[0];
-  if (m) mask = { data: Float32Array.from(m.getAsFloat32Array()), width: m.width, height: m.height };
+  if (m) {
+    const data = Float32Array.from(m.getAsFloat32Array());
+    // The segmenter returns a mask for every photo, even with nobody in it. A near-empty one
+    // means "no person": using it would replace the whole picture with background.
+    const coverage = data.reduce((sum, v) => sum + v, 0) / data.length;
+    if (coverage >= MIN_PERSON_COVERAGE) mask = { data, width: m.width, height: m.height };
+  }
   result.close();
 
   return { face: bestFace, mask };
