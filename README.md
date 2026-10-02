@@ -13,4 +13,4 @@ flowchart LR
     F --> H["Avatars: Cartoon, Pop Art,<br/>Sketch, Duotone, Halftone, Pixel"]
 ```
 
-**[Instructions →](docs/INSTRUCTIONS.md)** · [File structure](docs/FILE-STRUCTURE.md) · [Try it in your browser](https://amalmehta.github.io/headshot_generator/)
+**[Instructions →](docs/INSTRUCTIONS.md)** · [System design](docs/SYSTEM-DESIGN.md) · [File structure](docs/FILE-STRUCTURE.md) · [Try it in your browser](https://amalmehta.github.io/headshot_generator/)
